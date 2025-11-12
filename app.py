@@ -48,3 +48,28 @@ if food_file and emotion:
     # Detectar alimento principal
     main_ingredient = predict_food(food_image)
     st.markdown(f"<div class='card-neutral'>Ingrediente principal detectado: <b>{main_ingredient}</b></div>", unsafe_allow_html=True)
+
+    # ==============================
+    # 🧘‍♀️ Paso 3 - Generar todo con LLM
+    # ==============================
+    st.markdown("<h3>🌿 Generando recomendaciones personalizadas...</h3>", unsafe_allow_html=True)
+
+    # Llamar al modelo de lenguaje
+    response_text = generate_all_recommendations(main_ingredient, emotion)
+
+    try:
+        data = json.loads(response_text)
+
+        st.markdown(f"<div class='card-{emotion}'><h4>🍽️ Receta sugerida</h4>{data['receta']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='card-{emotion}'><h4>🏋️ Rutina recomendada</h4>{data['rutina']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='card-{emotion}'><h4>🎵 Playlist sugerida</h4>{data['playlist']}</div>", unsafe_allow_html=True)
+
+    except Exception:
+        st.error("⚠️ No se pudo interpretar la respuesta del modelo. Aquí está la respuesta bruta:")
+        st.text(response_text)
+
+# ==============================
+# 🧩 Mensaje final
+# ==============================
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>💚 Desarrollado con IA — LifeBoost AI © 2025</p>", unsafe_allow_html=True)
