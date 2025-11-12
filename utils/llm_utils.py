@@ -33,3 +33,14 @@ def generate_all_recommendations(ingredient: str, emotion: str):
       "playlist": "Playlist relajante de sonidos naturales y pop suave..."
     }}
     """
+
+    response = client.chat.completions.create(
+        model="meta-llama/llama-3.1-70b-instruct",
+        messages=[
+            {"role": "system", "content": "Eres un coach empático de bienestar integral."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=600,
+    )
+
+    return response.choices[0].message.content.strip()
