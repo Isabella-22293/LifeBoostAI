@@ -1,0 +1,100 @@
+/*-----------------------------------
+  Color variables
+-----------------------------------*/
+:root {
+  /* Light mode */
+  --bg-light: #f7f7f7;
+  --text-light: #2c3e50;
+
+  /* Dark mode */
+  --bg-dark: #1e1e1e;
+  --text-dark: #ecf0f1;
+
+  /* Emotion colors - light */
+  --happy-light: #2ecc71;
+  --sad-light: #3498db;
+  --angry-light: #e74c3c;
+  --neutral-light: #95a5a6;
+  --surprised-light: #9b59b6;
+
+  /* Emotion colors - dark */
+  --happy-dark: #27ae60;
+  --sad-dark: #2980b9;
+  --angry-dark: #c0392b;
+  --neutral-dark: #7f8c8d;
+  --surprised-dark: #8e44ad;
+}
+
+/*-----------------------------------
+  Background and text based on theme
+-----------------------------------*/
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+  }
+}
+
+/*-----------------------------------
+  Emotion Cards
+-----------------------------------*/
+.card-happy, .card-sad, .card-angry, .card-neutral, .card-surprised {
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 12px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+@media (prefers-color-scheme: light) {
+  .card-happy { background-color: var(--happy-light); }
+  .card-sad { background-color: var(--sad-light); }
+  .card-angry { background-color: var(--angry-light); }
+  .card-neutral { background-color: var(--neutral-light); }
+  .card-surprised { background-color: var(--surprised-light); }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card-happy { background-color: var(--happy-dark); }
+  .card-sad { background-color: var(--sad-dark); }
+  .card-angry { background-color: var(--angry-dark); }
+  .card-neutral { background-color: var(--neutral-dark); }
+  .card-surprised { background-color: var(--surprised-dark); }
+}
+
+/*-----------------------------------
+  File Upload styling
+-----------------------------------*/
+.stFileUploader {
+  border: 2px dashed #bbb;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/*-----------------------------------
+  Buttons
+-----------------------------------*/
+.stButton > button {
+  background-color: #1abc9c;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  border: none;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
+
+.stButton > button:hover {
+  background-color: #16a085;
+  cursor: pointer;
+}
