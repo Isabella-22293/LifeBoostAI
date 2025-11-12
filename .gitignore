@@ -1,0 +1,21 @@
+# Archivos de entorno
+.env
+
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Modelos pesados
+*.pth
+*.pt
+
+# Archivos temporales o de configuración
+.DS_Store
+*.log
+
+# Directorios de dependencias o entornos
+venv/
+.env/
+env/
