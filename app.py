@@ -19,3 +19,32 @@ st.markdown("<h3 style='text-align: center;'>Tu bienestar emocional guía tu fit
 
 st.sidebar.title("Opciones")
 st.sidebar.info("Sube tu selfie y una foto de tus ingredientes para obtener recomendaciones personalizadas de bienestar, recetas y música.")
+
+# ==============================
+# 🧍 Paso 1 - Análisis emocional
+# ==============================
+st.subheader("🧠 Sube tu selfie")
+selfie_file = st.file_uploader("Selecciona una imagen de tu rostro", type=['jpg', 'png', 'jpeg'])
+
+emotion = None
+if selfie_file:
+    image = Image.open(selfie_file)
+    st.image(image, caption="Tu selfie", use_container_width=True)
+
+    # Detectar emoción
+    emotion = predict_emotion(image)
+    st.markdown(f"<div class='card-{emotion}'>Estado emocional detectado: <b>{emotion}</b></div>", unsafe_allow_html=True)
+
+# ==============================
+# 🥦 Paso 2 - Ingredientes
+# ==============================
+st.subheader("🍅 Sube una foto de tus ingredientes")
+food_file = st.file_uploader("Selecciona la foto de tus ingredientes", type=['jpg', 'png', 'jpeg'])
+
+if food_file and emotion:
+    food_image = Image.open(food_file)
+    st.image(food_image, caption="Ingredientes detectados", use_container_width=True)
+
+    # Detectar alimento principal
+    main_ingredient = predict_food(food_image)
+    st.markdown(f"<div class='card-neutral'>Ingrediente principal detectado: <b>{main_ingredient}</b></div>", unsafe_allow_html=True)
