@@ -1,100 +1,150 @@
-/*-----------------------------------
-  Color variables
------------------------------------*/
-:root {
-  /* Light mode */
-  --bg-light: #f7f7f7;
-  --text-light: #2c3e50;
+/* ================================
+   Estilo general moderno y elegante
+   ================================ */
 
-  /* Dark mode */
-  --bg-dark: #1e1e1e;
-  --text-dark: #ecf0f1;
-
-  /* Emotion colors - light */
-  --happy-light: #2ecc71;
-  --sad-light: #3498db;
-  --angry-light: #e74c3c;
-  --neutral-light: #95a5a6;
-  --surprised-light: #9b59b6;
-
-  /* Emotion colors - dark */
-  --happy-dark: #27ae60;
-  --sad-dark: #2980b9;
-  --angry-dark: #c0392b;
-  --neutral-dark: #7f8c8d;
-  --surprised-dark: #8e44ad;
+body, .stApp {
+    font-family: 'Poppins', sans-serif;
+    color: #2e2e2e;
+    transition: background-color 0.8s ease-in-out, color 0.5s ease-in-out;
 }
 
-/*-----------------------------------
-  Background and text based on theme
------------------------------------*/
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: var(--bg-light);
-    color: var(--text-light);
-  }
+/* Fondo dinámico por página */
+body[data-page="welcome"] .stApp {
+    background-color: #f5f7f2;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--bg-dark);
-    color: var(--text-dark);
-  }
+body[data-page="emotion"] .stApp {
+    background-color: #eef7f1;
 }
 
-/*-----------------------------------
-  Emotion Cards
------------------------------------*/
-.card-happy, .card-sad, .card-angry, .card-neutral, .card-surprised {
-  padding: 15px;
-  margin-top: 10px;
-  border-radius: 12px;
-  font-size: 18px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+body[data-page="ingredients"] .stApp {
+    background-color: #f9f6ec;
 }
 
-@media (prefers-color-scheme: light) {
-  .card-happy { background-color: var(--happy-light); }
-  .card-sad { background-color: var(--sad-light); }
-  .card-angry { background-color: var(--angry-light); }
-  .card-neutral { background-color: var(--neutral-light); }
-  .card-surprised { background-color: var(--surprised-light); }
+body[data-page="results"] .stApp {
+    background-color: #f3f8f3;
 }
 
-@media (prefers-color-scheme: dark) {
-  .card-happy { background-color: var(--happy-dark); }
-  .card-sad { background-color: var(--sad-dark); }
-  .card-angry { background-color: var(--angry-dark); }
-  .card-neutral { background-color: var(--neutral-dark); }
-  .card-surprised { background-color: var(--surprised-dark); }
+h1, h2, h3, h4 {
+    color: #234d35;
+    font-weight: 600;
 }
 
-/*-----------------------------------
-  File Upload styling
------------------------------------*/
-.stFileUploader {
-  border: 2px dashed #bbb;
-  padding: 14px;
-  border-radius: 10px;
-  text-align: center;
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
 }
 
-/*-----------------------------------
-  Buttons
------------------------------------*/
+h2 {
+    font-size: 1.7rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    color: #3e3e3e;
+    line-height: 1.6;
+}
+
+/* ================================
+   Tarjetas dinámicas y legibles
+   ================================ */
+.card {
+    background-color: var(--card-bg, #f2f2f2);
+    border-radius: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    padding: 1.5rem 2rem;
+    margin-top: 1rem;
+    transition: all 0.4s ease-in-out;
+    animation: fadeIn 0.8s ease-in-out;
+    color: #2e2e2e;
+}
+
+.card h4 {
+    color: #1e4620;
+    margin-bottom: 0.7rem;
+}
+
+/* Colores de tarjetas según tipo */
+.card-emotion {
+    --card-bg: #d9f8de;
+}
+.card-food {
+    --card-bg: #fff9e6;
+}
+.card-result {
+    --card-bg: #e7f7e9;
+}
+
+/* ================================
+   Botón flotante inferior derecho
+   ================================ */
 .stButton > button {
-  background-color: #1abc9c;
-  color: white;
-  border-radius: 10px;
-  padding: 10px 20px;
-  border: none;
-  transition: 0.3s ease;
-  font-weight: bold;
+    position: fixed !important;
+    bottom: 25px;
+    right: 30px;
+    background-color: #4CAF50 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 0.8rem 1.6rem !important;
+    font-weight: 600;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease-in-out, background-color 0.3s;
+    z-index: 999;
 }
 
 .stButton > button:hover {
-  background-color: #16a085;
-  cursor: pointer;
+    transform: scale(1.07);
+    background-color: #3a8f3a !important;
+}
+
+/* ================================
+   Animación Fade-in
+   ================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+/* ================================
+   Footer
+   ================================ */
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: #5c5c5c;
+    font-size: 0.9rem;
+    padding-bottom: 20px;
+}
+/* Transiciones suaves entre pantallas */
+.fade-in {
+  animation: fadeIn ease 0.9s;
+  animation-fill-mode: both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón fijo en esquina inferior derecha */
+.stButton > button[kind="primary"], .stButton > button {
+  position: fixed !important;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+  background-color: #3a8f7a !important;
+  color: white !important;
+  border-radius: 12px !important;
+  padding: 10px 20px !important;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+.stButton > button:hover {
+  background-color: #2e7b67 !important;
+  transform: scale(1.05);
 }

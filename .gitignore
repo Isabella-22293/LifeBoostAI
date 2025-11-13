@@ -1,21 +1,44 @@
-# Archivos de entorno
-.env
-
-# Archivos de Python
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
-
-# Modelos pesados
-*.pth
-*.pt
-
-# Archivos temporales o de configuración
-.DS_Store
-*.log
-
-# Directorios de dependencias o entornos
-venv/
-.env/
+*.pyc
+*.env
+*.venv
 env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Datasets y modelos pesados
+models/
+datasets/
+data/
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# Archivos de logs y temporales
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Otros
+*.sqlite3
