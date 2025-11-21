@@ -1,150 +1,212 @@
-/* ================================
-   Estilo general moderno y elegante
-   ================================ */
+/* ============================================================
+   LifeBoost AI — style.css
+   Modern minimal glass design (beige claro / café claro)
+   Guarda este archivo como: assets/style.css
+   ============================================================ */
 
-body, .stApp {
-    font-family: 'Poppins', sans-serif;
-    color: #2e2e2e;
-    transition: background-color 0.8s ease-in-out, color 0.5s ease-in-out;
-}
-
-/* Fondo dinámico por página */
-body[data-page="welcome"] .stApp {
-    background-color: #f5f7f2;
-}
-
-body[data-page="emotion"] .stApp {
-    background-color: #eef7f1;
-}
-
-body[data-page="ingredients"] .stApp {
-    background-color: #f9f6ec;
-}
-
-body[data-page="results"] .stApp {
-    background-color: #f3f8f3;
+:root{
+  --bg: #f7efe6;
+  --panel: rgba(255,255,255,0.55);
+  --panel-2: rgba(245,238,230,0.6);
+  --accent: #76a86b;
+  --accent-2: #5e8f57;
+  --muted: #7a6b5b;
+  --glass-border: rgba(255,255,255,0.6);
+  --glass-glow: rgba(150,120,100,0.12);
+  --card-radius: 16px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 30px rgba(28,20,10,0.06);
+  --glass-shadow: 0 6px 20px rgba(20,14,8,0.06);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-h1, h2, h3, h4 {
-    color: #234d35;
-    font-weight: 600;
+html, body, .main, .block-container{
+  background: linear-gradient(180deg, var(--bg), #fbf6ef);
+  color: var(--muted);
 }
 
-h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
+.page-start, .page-emotion, .page-ingredients, .page-results{
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 28px;
+  border-radius: var(--card-radius);
+  background: transparent;
+  box-shadow: var(--glass-shadow), var(--shadow);
+  border: none;
+  backdrop-filter: blur(8px) saturate(120%);
 }
 
-h2 {
-    font-size: 1.7rem;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+.start-title {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: #2d2d2d !important;
 }
 
-p {
-    color: #3e3e3e;
-    line-height: 1.6;
+.start-sub{
+  margin: 0 0 18px 0;
+  font-size: 15px;
+  color: #2d2d2d;
+  font-weight: 500;
 }
 
-/* ================================
-   Tarjetas dinámicas y legibles
-   ================================ */
-.card {
-    background-color: var(--card-bg, #f2f2f2);
-    border-radius: 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    padding: 1.5rem 2rem;
-    margin-top: 1rem;
-    transition: all 0.4s ease-in-out;
-    animation: fadeIn 0.8s ease-in-out;
-    color: #2e2e2e;
+.page-heading{
+  font-size: 20px;
+  color: #2d2d2d;
+  margin-bottom: 12px;
+  letter-spacing: 0.2px;
 }
 
-.card h4 {
-    color: #1e4620;
-    margin-bottom: 0.7rem;
+.section-card{
+  background: var(--panel-2);
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.45);
 }
 
-/* Colores de tarjetas según tipo */
-.card-emotion {
-    --card-bg: #d9f8de;
-}
-.card-food {
-    --card-bg: #fff9e6;
-}
-.card-result {
-    --card-bg: #e7f7e9;
-}
-
-/* ================================
-   Botón flotante inferior derecho
-   ================================ */
-.stButton > button {
-    position: fixed !important;
-    bottom: 25px;
-    right: 30px;
-    background-color: #4CAF50 !important;
-    color: #ffffff !important;
-    border: none !important;
-    border-radius: 50px !important;
-    padding: 0.8rem 1.6rem !important;
-    font-weight: 600;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-    transition: transform 0.25s ease-in-out, background-color 0.3s;
-    z-index: 999;
+input[type='text'], .stTextInput, textarea, .stTextArea textarea, .stFileUploader, .stFileUploader div {
+  width: 100% !important;
+  padding: 10px 12px !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid rgba(120,100,86,0.08) !important;
+  background: rgba(255,255,255,0.7) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  color: #3e2f2a !important;
+  font-size: 20px !important;
 }
 
-.stButton > button:hover {
-    transform: scale(1.07);
-    background-color: #3a8f3a !important;
+textarea[disabled]{
+  min-height: 160px;
+  max-height: 400px;
+  resize: vertical;
+  padding: 12px !important;
+  font-size: 14px !important;
+  line-height: 1.45;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,245,241,0.45)) !important;
+  border: 1px solid rgba(120,100,86,0.06) !important;
 }
 
-/* ================================
-   Animación Fade-in
-   ================================ */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+button, .stButton button{
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  color: #fff !important;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(149,106,76,0.18);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+button:hover, .stButton button:hover{ transform: translateY(-2px); }
+button:active, .stButton button:active{ transform: translateY(0); box-shadow: 0 3px 10px rgba(149,106,76,0.12);} 
+
+.button-ghost{
+  background: transparent;
+  color: var(--accent-2);
+  border: 1px solid rgba(154,111,72,0.12);
 }
 
-.fade-in {
-  animation: fadeIn 0.7s ease-in-out;
+.page-results ul.playlist, .playlist-list{
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+.page-results li{
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: rgba(178, 255, 178, 0.42);
+  border: 1px solid rgba(0, 80, 4, 0.04);
+  font-size: 20px;
 }
 
-/* ================================
-   Footer
-   ================================ */
-.footer {
-    margin-top: 2rem;
-    text-align: center;
-    color: #5c5c5c;
-    font-size: 0.9rem;
-    padding-bottom: 20px;
-}
-/* Transiciones suaves entre pantallas */
-.fade-in {
-  animation: fadeIn ease 0.9s;
-  animation-fill-mode: both;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.footer{
+  text-align: center;
+  color: #2d2d2d;
+  font-size: 13px;
+  margin: 28px 0 40px 0;
+  opacity: 0.9;
 }
 
-/* Botón fijo en esquina inferior derecha */
-.stButton > button[kind="primary"], .stButton > button {
-  position: fixed !important;
-  bottom: 25px;
-  right: 25px;
-  z-index: 1000;
-  background-color: #3a8f7a !important;
-  color: white !important;
-  border-radius: 12px !important;
-  padding: 10px 20px !important;
-  box-shadow: 0px 3px 8px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
+.kv-row{
+  display:flex; gap:12px; align-items:center; justify-content:space-between;
 }
-.stButton > button:hover {
-  background-color: #2e7b67 !important;
-  transform: scale(1.05);
+.badge{
+  display:inline-block; padding:6px 10px; border-radius:999px; font-weight:600; font-size:12px;
+  background: rgba(154,111,72,0.12); color: var(--accent-2);
+}
+
+@media (max-width:900px){
+  .page-start, .page-emotion, .page-ingredients, .page-results{ padding:18px; margin:18px; }
+  .start-title{ font-size:28px }
+}
+
+input:focus, textarea:focus, button:focus{
+  outline: 2px solid rgba(150,110,75,0.12);
+  outline-offset: 2px;
+}
+
+.page-heading::after{
+  content: '';
+  display:block; width:56px; height:4px; border-radius:2px; margin-top:10px;
+  background: linear-gradient(90deg, rgba(154,111,72,0.18), rgba(154,111,72,0.35));
+}
+
+img{
+  max-width:100%; border-radius:10px; border:1px solid rgba(255,255,255,0.6);
+}
+
+.result-card{
+  padding:14px; border-radius:12px; margin-bottom:12px;
+  background: linear-gradient(180deg, rgba(138, 235, 159, 0.52), rgba(138, 235, 159, 0.52));
+  border: 1px solid rgba(0, 68, 26, 0.5);
+  box-shadow: 0 8px 20px rgba(3, 7, 4, 0.04);
+}
+
+/* Ocultar barra superior fantasma */
+.stApp > header {
+  display: none !important;
+}
+header[data-testid="stHeader"] {
+  display: none !important;
+}
+
+.main, .block-container, [data-testid="stAppViewContainer"], section.main {
+  padding-top: 0 !important;
+}
+
+main > div:first-child, .main > div:first-child, .block-container > div:first-child {
+  margin-top: 0 !important;
+}
+
+/* 🟢 Card sin forzar el color del texto */
+.card, .recommendation-card, div[data-testid="stHorizontalBlock"] {
+  background: rgba(118, 168, 107, 0.25) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(118, 168, 107, 0.4) !important;
+}
+
+/* ============================================================
+   🔥 TEXTO GENERADO POR EL LLM — AJUSTE DEFINITIVO
+   ============================================================ */
+
+.receta-texto,
+.rutina-texto,
+.playlist-texto{
+  font-size: 20px !important;   /* Tamaño de fuente solicitado */
+  line-height: 1.55;
+  color: #2d2d2d !important;
+  white-space: pre-line;
+  padding: 6px 0;
+  font-weight: 500;
+}
+
+/* Permitir que los elementos internos NO rompan tu tamaño ni color */
+.receta-texto * ,
+.rutina-texto * ,
+.playlist-texto * {
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
 }

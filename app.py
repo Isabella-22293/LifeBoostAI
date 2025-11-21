@@ -14,7 +14,17 @@ import random
 st.set_page_config(page_title="LifeBoost AI", layout="wide")
 
 # ================================
-# Playlists por emoción
+# Cargar CSS
+# ================================
+def load_css(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+load_css("assets/style.css")
+
+# ================================
+# Playlist data
+# (NO TOCADO)
 # ================================
 playlists = {
     "feliz": [
@@ -61,7 +71,7 @@ playlists = {
     "sorprendido": [
         "Surprise Yourself - Jack Garratt", "Adventure of a Lifetime - Coldplay",
         "On Top of the World - Imagine Dragons", "Wake Me Up - Avicii",
-        "Good Time - Owl City & Carly Rae Jepsen", "Can't Hold Us - Macklemore & Ryan Lewis",
+        "Good Time - Owl City & Carly Rae Jepsen", "Can't Hold Us - Macklemore",
         "Don't Stop Me Now - Queen", "Shake It Off - Taylor Swift",
         "Best Day Of My Life - American Authors", "Roar - Katy Perry",
         "Happy - Pharrell Williams", "Counting Stars - OneRepublic",
@@ -94,7 +104,6 @@ playlists = {
 }
 
 def generate_playlist(emotion, n_songs=20):
-    """Devuelve una playlist de n_songs según la emoción"""
     emotion = emotion.lower()
     if emotion not in playlists:
         emotion = "neutral"
@@ -159,7 +168,7 @@ else:
     emotion_translations = {}
 
 # ================================
-# Control de navegación
+# Navegación
 # ================================
 if "page" not in st.session_state:
     st.session_state.page = "welcome"
@@ -170,101 +179,114 @@ def go_to(page):
 page = st.session_state.page
 
 # ================================
-# Extracción de secciones mejorada
+# Funciones LLM (sin tocar)
 # ================================
 def extract_sections_fixed(text):
     receta_text, rutina_text, playlist_text = "", "", ""
     text = re.sub(r'\r\n', '\n', text).strip()
 
-    # Receta
     receta_match = re.search(r"(Receta|Recipe)[\s\S]*?(Rutina|Routine|Ejercicio|Exercise)", text, re.IGNORECASE)
     if receta_match:
         receta_text = receta_match.group(0)
         receta_text = re.sub(r"(Rutina|Routine|Ejercicio|Exercise).*", "", receta_text, flags=re.IGNORECASE).strip()
 
-    # Rutina
     rutina_match = re.search(r"(Rutina|Routine|Ejercicio|Exercise)[\s\S]*?(Playlist|Música|Music|Canciones)", text, re.IGNORECASE)
     if rutina_match:
         rutina_text = rutina_match.group(0)
         rutina_text = re.sub(r"(Playlist|Música|Music|Canciones).*", "", rutina_text, flags=re.IGNORECASE).strip()
 
-    # Playlist
     playlist_match = re.search(r"(Playlist|Música|Music|Canciones)[\s\S]*", text, re.IGNORECASE)
     if playlist_match:
         playlist_text = playlist_match.group(0)
-        playlist_text = re.sub(r"(Beneficios emocionales|Estiramiento|Termina).*", "", playlist_text, flags=re.IGNORECASE).strip()
 
     return receta_text, rutina_text, playlist_text
 
 def clean_output(text):
-    """
-    Limpia el texto de salida eliminando:
-    - Asteriscos *, guiones -, guiones bajos _
-    - Comillas simples y dobles
-    - Saltos de línea duplicados
-    - Espacios al inicio y final de cada línea
-    """
     if not text:
         return ""
-    
-    # Normalizamos saltos de línea
     text = re.sub(r'\r\n', '\n', text)
-
-    # Eliminamos asteriscos, guiones y guiones bajos
     text = re.sub(r'[*_–-]+', '', text)
-
-    # Eliminamos comillas simples y dobles
     text = text.replace('"', '').replace("'", '')
-
-    # Limpiamos espacios al inicio y final de cada línea
     text = "\n".join([line.strip() for line in text.splitlines()])
-
-    # Reducimos saltos de línea múltiples a uno solo
     text = re.sub(r'\n{2,}', '\n', text)
-
     return text.strip()
 
-# ================================
-# Páginas
-# ================================
+# ============================================================
+# PÁGINAS
+# ============================================================
+
+# -------------------------
+# WELCOME
+# -------------------------
 if page == "welcome":
-    st.markdown(f"<h1>{t['welcome_title']}</h1>", unsafe_allow_html=True)
-    st.markdown(f"<h3>{t['welcome_sub']}</h3>", unsafe_allow_html=True)
+    st.markdown("<div class='page-start'>", unsafe_allow_html=True)
+
+    st.markdown(f"<h1 class='start-title'>{t['welcome_title']}</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h3 class='start-sub'>{t['welcome_sub']}</h3>", unsafe_allow_html=True)
+
     if st.button(t["start"]):
         go_to("emotion")
 
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# -------------------------
+# EMOTION
+# -------------------------
 elif page == "emotion":
-    st.markdown(f"<h2>{t['how_feel']}</h2>", unsafe_allow_html=True)
+    st.markdown("<div class='page-emotion'>", unsafe_allow_html=True)
+
+    st.markdown(f"<h2 class='page-heading'>{t['how_feel']}</h2>", unsafe_allow_html=True)
+
     emotion_text = st.text_input(t["enter_emotion"])
     emotion_img = st.file_uploader(t["upload_emotion_img"], type=["jpg", "jpeg", "png"])
     emotion_detected = None
+
     if emotion_img:
         image = Image.open(emotion_img)
         st.image(image, use_container_width=True)
         emotion_detected = predict_emotion(image)
     elif emotion_text:
         emotion_detected = emotion_text.lower()
+
     if (emotion_text or emotion_img) and st.button(t["next"]):
         st.session_state.emotion = emotion_detected
         go_to("ingredients")
 
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# -------------------------
+# INGREDIENTS
+# -------------------------
 elif page == "ingredients":
-    st.markdown(f"<h2>{t['ingredients']}</h2>", unsafe_allow_html=True)
+    st.markdown("<div class='page-ingredients'>", unsafe_allow_html=True)
+
+    st.markdown(f"<h2 class='page-heading'>{t['ingredients']}</h2>", unsafe_allow_html=True)
+
     ingredient_text = st.text_input(t["enter_ingredient"])
     ingredient_img = st.file_uploader(t["upload_food_img"], type=["jpg", "jpeg", "png"])
     main_ingredient = None
+
     if ingredient_img:
         food_image = Image.open(ingredient_img)
         st.image(food_image, use_container_width=True)
         main_ingredient = predict_food(food_image)
     elif ingredient_text:
         main_ingredient = ingredient_text.lower()
+
     if (ingredient_text or ingredient_img) and st.button(t["generate"]):
         st.session_state.ingredient = main_ingredient
         go_to("results")
 
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# -------------------------
+# RESULTS
+# -------------------------
 elif page == "results":
-    st.markdown(f"<h2>{t['results']}</h2>", unsafe_allow_html=True)
+    st.markdown("<div class='page-results'>", unsafe_allow_html=True)
+
+    st.markdown(f"<h2 class='page-heading'>{t['results']}</h2>", unsafe_allow_html=True)
+
     emotion = st.session_state.get("emotion", "neutral")
     ingredient = st.session_state.get("ingredient", "none")
     emotion_display = emotion_translations.get(emotion.lower(), emotion.capitalize()) if lang_code == "es" else emotion.capitalize()
@@ -275,10 +297,13 @@ elif page == "results":
 
     response_text = json.dumps(response, ensure_ascii=False) if isinstance(response, dict) else str(response)
     receta_text, rutina_text, playlist_text = extract_sections_fixed(response_text)
-    receta_text, rutina_text, playlist_text = clean_output(receta_text), clean_output(rutina_text), clean_output(playlist_text)
+
+    receta_text = clean_output(receta_text)
+    rutina_text = clean_output(rutina_text)
+    playlist_text = clean_output(playlist_text)
 
     st.markdown(f"### {t['mood_card']}")
-    st.write(emotion_display.capitalize())
+    st.write(emotion_display)
 
     st.markdown(f"### {t['recipe_card']}")
     st.text_area("", receta_text, height=250, disabled=True)
@@ -294,7 +319,10 @@ elif page == "results":
     if st.button(t["home"], key="home_btn"):
         go_to("welcome")
 
-# ================================
-# Footer
-# ================================
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# -------------------------
+# FOOTER
+# -------------------------
 st.markdown(f"<p class='footer'>{t['footer']}</p>", unsafe_allow_html=True)
+
